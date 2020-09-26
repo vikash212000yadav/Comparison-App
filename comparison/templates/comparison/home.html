@@ -13,13 +13,13 @@
     {% csrf_token %}
     {% for field in form.visible_fields %}
         <hr>
+        {{ field.label_tag }}
         <div class="multiselect-container">
         {{ field }}
         </div>
-        </br>
     {% endfor %}
-
-    <button  type="submit" name="submit" value="submit">Submit</button>
+        <br>
+    <button class="btn-save btn btn-primary btn-sm" type="submit" name="submit" value="submit">Submit</button>
 
     </form>
 
