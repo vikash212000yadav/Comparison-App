@@ -5,5 +5,5 @@ app_name = 'comparison'
 
 urlpatterns = [
     path('', views.home, name='comparison'),
-    path('compare', views.compare, name='compare'),
+    path('compare', views.home, name='compare'),
 ]

@@ -12,12 +12,12 @@ class FilterForm(forms.Form):
 
         # self.fields["Company"] = forms.MultipleChoiceField(choices=choices_company, widget=forms.CheckboxSelectMultiple(), required=True)
 
-        # self.fields["Chipset"] = forms.MultipleChoiceField(choices=choices_chipset,
-        #                                                   widget=forms.CheckboxSelectMultiple(), required=True)
-        # self.fields["Benchmark"] = forms.MultipleChoiceField(choices=choices_benchmark,
-        #                                                     widget=forms.CheckboxSelectMultiple(), required=True)
-
         self.fields["Chipset"] = forms.MultipleChoiceField(choices=choices_chipset,
-                                                           widget=forms.SelectMultiple(), required=True)
+                                                           widget=forms.CheckboxSelectMultiple(), required=True)
         self.fields["Benchmark"] = forms.MultipleChoiceField(choices=choices_benchmark,
-                                                             widget=forms.SelectMultiple(), required=True)
+                                                             widget=forms.CheckboxSelectMultiple(), required=True)
+
+        # self.fields["Chipset"] = forms.MultipleChoiceField(choices=choices_chipset,
+        #                                                   widget=forms.SelectMultiple(), required=True)
+        # self.fields["Benchmark"] = forms.MultipleChoiceField(choices=choices_benchmark,
+        #                                                     widget=forms.SelectMultiple(), required=True)
