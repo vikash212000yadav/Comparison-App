@@ -7,22 +7,27 @@
 </head>
 <body>
 {% block content %}
+    {% if user.is_authenticated %}
+        <h2><strong>Hello </strong> {{ user.first_name }}  :)</h2>
 
-    <h3>All the chipset names are here that can be compared as required.</h3>
-    <form action="/" method="post" enctype="multipart/form-data" class="post-form">
-    {% csrf_token %}
-    {% for field in form.visible_fields %}
-        <hr>
-        {{ field.label_tag }}
-        <div class="multiselect-container">
-        {{ field }}
-        </div>
-    {% endfor %}
-        <br>
+        <h3>All the chipset names are here that can be compared as required.</h3>
+        <form action="/" method="post" enctype="multipart/form-data" class="post-form">
+            {% csrf_token %}
+            {% for field in form.visible_fields %}
+                <hr>
+                {{ field.label_tag }}
+                <div class="multiselect-container">
+                    {{ field }}
+                </div>
+            {% endfor %}
+            <br>
 
-    <button class="btn-save btn btn-primary btn-sm" type="submit" name="submit" value="submit">Submit</button>
+            <button class="btn-save btn btn-primary btn-sm" type="submit" name="submit" value="submit">Submit</button>
 
-    </form>
+        </form>
+        {% else %}
+        <a href="{% url 'comparison:login' %}">Login</a>
+    {% endif %}
 
 {% endblock %}
 

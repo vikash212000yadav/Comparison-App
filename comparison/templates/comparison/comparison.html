@@ -7,19 +7,29 @@
 </head>
 <body>
 {% block content %}
-    <h1>Comparison</h1>
+    <h2>Comparison according to your set preferences</h2>
     <br>
-    <div>
-    {{ form_chipset }}
-    </div>
-    <div>
-    {{ form_benchmark }}
-    </div>
-    <div>
-        <h1>Values</h1>
-        <p>{{ values }}</p>
-    </div>
 
+    <div>
+        <table style="width:100%;">
+            <tr>
+                <th></th>
+                {% for x in chipset_name %}
+                    <th>{{ x.chipset_name }}</th>
+                {% endfor %}
+            </tr>
+
+
+            <tr>
+                {% for value in values %}
+                    {% for m in value %}
+                        <td>{{ m }}</td>
+                    {% endfor %}
+                    </tr>
+
+                {% endfor %}
+        </table>
+    </div>
 {% endblock %}
 
 </body>
