@@ -27,3 +27,12 @@ class FilterValue(models.Model):
     chipset = models.ForeignKey(Chipset, on_delete=models.CASCADE)
     benchmark = models.ForeignKey(Benchmark, on_delete=models.CASCADE)
     values = models.IntegerField()
+
+"""
+    Chipset
+B1    1
+B2    2
+B3    3
+B4    4
+B5    5
+"""

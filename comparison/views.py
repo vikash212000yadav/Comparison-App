@@ -1,3 +1,5 @@
+import csv
+import pandas as pd
 from django.contrib.auth.forms import PasswordChangeForm
 from django.shortcuts import render, redirect
 from django.views.generic import ListView
@@ -34,30 +36,35 @@ def home(request):
 
             comparison_values = []
             for test in form_benchmark:
-                comparison_values.append(list(benchmark.objects.filter(pk=test))+list(
+                comparison_values.append(list(benchmark.objects.filter(pk=test)) + list(
                     FilterValue.objects.filter(chipset__id__in=form_chipset, benchmark__id__in=test).values_list(
                         'values', flat=True)))
 
+            df1 = pd.read_csv("/home/vikky/peekaboo/vikash/src/master_data/master_data.csv")
+
             return render(request, "comparison/comparison.html",
-                          {'form_chipset': form_chipset, 'form_benchmark': form_benchmark, 'values': comparison_values,
+                          {'df1': df1, 'form_chipset': form_chipset, 'form_benchmark': form_benchmark,
+                           'values': comparison_values,
                            'chipset_name': selected_chipset})
         else:
             messages.success(request, 'Please select required fields')
             return redirect('comparison:comp')
-        # 'values1': comparison_value1, 'values2': comparison_value2})
-        # [1,2,645,789] -> [[1,2], [645,789]]
 
 
 """
-        comparison_value1 = list(
-            FilterValue.objects.filter(benchmark__id__in=form_benchmark).values_list1(
-                'values1', flat=True
-            )
+
+def convert(request):
+    for row in csv.reader(str, delimiter=',', quotechar="|"):
+        _, created = Chipset.objects.update_or_create(
+            chipset_name=row[1],
         )
-        comparison_value2 = list(
-            FilterValue.objects.filter(chipset__id__in=form_chipset).values_list2(
-                'values2', flat=True
-            )
+
+        _, created = Benchmark.objects.update_or_create(
+            benchmark_name=row[1][1],
+        )
+
+        _, created = FilterValue.objects.update_or_create(
+            chipset=row[1][2],
         )
 """
 
