@@ -9,7 +9,11 @@
 {% block content %}
     <h2>Comparison according to your set preferences</h2>
     <br>
-
+    <br>
+    {{ df1 }}
+    <br>
+    {{ df2 }}
+    <br><br>
     <div>
         <table style="width:100%;">
             <tr>
@@ -22,6 +26,7 @@
 
             <tr>
                 {% for value in values %}
+                    <td>000</td>
                     {% for m in value %}
                         <td>{{ m }}</td>
                     {% endfor %}
