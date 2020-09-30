@@ -10,25 +10,20 @@
     <h2>Comparison according to your set preferences</h2>
     <br>
     <br>
-    {{ df1 }}
-    <br>
-    {{ df2 }}
-    <br><br>
     <div>
-        <table style="width:100%;">
+        <table style="width:100%; border: 2px solid black;">
             <tr>
                 <th></th>
                 {% for x in chipset_name %}
-                    <th>{{ x.chipset_name }}</th>
+                    <th style="border: 2px solid black;">{{ x.chipset_name }}</th>
                 {% endfor %}
             </tr>
 
 
             <tr>
                 {% for value in values %}
-                    <td>000</td>
                     {% for m in value %}
-                        <td>{{ m }}</td>
+                        <td style="border: 2px solid black;">{{ m }}</td>
                     {% endfor %}
                     </tr>
 

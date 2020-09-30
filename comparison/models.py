@@ -28,6 +28,13 @@ class FilterValue(models.Model):
     benchmark = models.ForeignKey(Benchmark, on_delete=models.CASCADE)
     values = models.IntegerField()
 
+    def __str__(self):
+        return '%s %s' % (str(self.chipset), str(self.benchmark))
+
+
+#     def __str__(self):
+ #        return str(self.values)
+
 """
     Chipset
 B1    1
