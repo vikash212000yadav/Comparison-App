@@ -40,11 +40,8 @@ def home(request):
                     FilterValue.objects.filter(chipset__id__in=form_chipset, benchmark__id__in=test).values_list(
                         'values', flat=True)))
 
-            df1 = pd.read_csv("/home/vikky/peekaboo/vikash/src/master_data/master_data.csv")
-
             return render(request, "comparison/comparison.html",
-                          {'df1': df1, 'form_chipset': form_chipset, 'form_benchmark': form_benchmark,
-                           'values': comparison_values,
+                          {'form_chipset': form_chipset, 'form_benchmark': form_benchmark, 'values': comparison_values,
                            'chipset_name': selected_chipset})
         else:
             messages.success(request, 'Please select required fields')
