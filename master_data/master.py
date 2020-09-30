@@ -3,7 +3,6 @@ import pandas as pd
 
 df1 = pd.read_csv("/home/vikky/peekaboo/vikash/src/master_data/master_data.csv", index_col=0)
 print(df1)
-print("*****************")
 
 # FilterValue
 list1 = df1.T.values.tolist()
@@ -14,8 +13,7 @@ table = [fmt.format(*row) for row in s]
 
 flatten_list = list(chain.from_iterable(list1))
 N = df1.size
-df5 = pd.DataFrame(flatten_list, columns=["values"], index=range(1, N + 1))
-print(df5)
+df5 = pd.DataFrame(flatten_list, columns=["final_values"], index=range(1, N + 1))
 ch = pd.DataFrame(df5)
 c = len(df1.columns)
 r = int(N / c)
@@ -36,14 +34,11 @@ ch['benchmark'] = benchmark_id
 # ch['values'] = df5
 ch.to_csv('FilterValue.csv', index=True)
 
-# FilterValue Ends Here
-
-# CHipset_value
+# BenchmarkValue
 
 df_benchmark = pd.read_csv("/home/vikky/peekaboo/vikash/src/master_data/master_data.csv")
 cols = [0]
 df_2 = df_benchmark[df_benchmark.columns[cols]]
-print(df_2)
 ch1 = pd.DataFrame()
 id = []
 for a3 in range(r):
@@ -52,6 +47,8 @@ for a3 in range(r):
 ch1['id'] = id
 ch1['benchmark_name'] = df_2
 ch1.to_csv("benchmark.csv", index=False)
+
+# ChipsetValue
 
 df_chipset = pd.read_csv("/home/vikky/peekaboo/vikash/src/master_data/master_data.csv", index_col=0).T
 col = [0]
