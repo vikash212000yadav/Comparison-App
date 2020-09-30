@@ -26,7 +26,7 @@ class Benchmark(models.Model):
 class FilterValue(models.Model):
     chipset = models.ForeignKey(Chipset, on_delete=models.CASCADE)
     benchmark = models.ForeignKey(Benchmark, on_delete=models.CASCADE)
-    values = models.IntegerField()
+    final_values = models.IntegerField()
 
     def __str__(self):
         return '%s %s' % (str(self.chipset), str(self.benchmark))

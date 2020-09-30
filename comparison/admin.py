@@ -9,7 +9,8 @@ from import_export import resources
 @admin.register(Chipset)
 @admin.register(FilterValue)
 class AdminView(ImportExportModelAdmin):
-    exclude = ('id',)
+    pass
+    #exclude = ('id',)
 
 
 """

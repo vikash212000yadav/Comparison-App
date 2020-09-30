@@ -25,23 +25,26 @@ def home(request):
         return render(request, "comparison/home.html", {'form': form})
 
     if request.method == "POST" and 'submit' in request.POST:
-        form_chipset = request.POST.getlist("Chipset") or None
-        form_benchmark = request.POST.getlist("Benchmark") or None
-        if len(form_chipset) >= 2 and form_benchmark is not None:
-            chipset = models.Chipset
-            benchmark = models.Benchmark
-            selected_chipset = []
+        form_chipset = request.POST.getlist("Chipset") or None  # selected chipset id's in a list
+        form_benchmark = request.POST.getlist("Benchmark") or None  # selected benchmark id's in a list
+        if len(form_chipset) >= 2 and form_benchmark is not None:  # validations to select minimum 2 chipsets and minimum one benchmark
+            chipset = models.Chipset  # fetching full Chipset table from models.py
+            benchmark = models.Benchmark   # fetching full benchmark table from models.py
+            selected_chipset = []  # blank list to store selected chipsets name
             for i in form_chipset:
-                selected_chipset += chipset.objects.filter(pk=i)
+                selected_chipset += chipset.objects.filter(pk=i)  # selected chipset's name list fetched from chipset table as per the selected ids
+            # selected_chipset = ['SA6155', 'SA6155A']
 
-            comparison_values = []
+            comparison_values = []  # selected benchmarks name + values
             for test in form_benchmark:
                 comparison_values.append(list(benchmark.objects.filter(pk=test)) + list(
                     FilterValue.objects.filter(chipset__id__in=form_chipset, benchmark__id__in=test).values_list(
-                        'values', flat=True)))
+                        'final_values', flat=True)))
+
+            # comparison_values=['Antutu 7', ['100', '130'], 'Antutu 6', ['102', '132']]
 
             return render(request, "comparison/comparison.html",
-                          {'form_chipset': form_chipset, 'form_benchmark': form_benchmark, 'values': comparison_values,
+                          {'form_chipset': form_chipset, 'form_benchmark': form_benchmark, 'final_values': comparison_values,
                            'chipset_name': selected_chipset})
         else:
             messages.success(request, 'Please select required fields')
