@@ -60,11 +60,17 @@
             position: relative;
             min-height: 100%;
         }
+        .fixed {
+            position: fixed;
+            z-index: 10;
+            width: 100%;
+            top: 0;
+        }
     </style>
 </head>
 <body>
 <div class="wrapper">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed">
         <a class="navbar-brand" href="{% url 'comparison:comp' %}"><h2>SPT Auto</h2></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
