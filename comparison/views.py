@@ -1,4 +1,6 @@
 import csv
+
+import numpy
 import pandas as pd
 from django.contrib.auth.forms import PasswordChangeForm
 from django.shortcuts import render, redirect
@@ -27,12 +29,14 @@ def home(request):
     if request.method == "POST" and 'submit' in request.POST:
         form_chipset = request.POST.getlist("Chipset") or None  # selected chipset id's in a list
         form_benchmark = request.POST.getlist("Benchmark") or None  # selected benchmark id's in a list
-        if len(form_chipset) >= 2 and form_benchmark is not None:  # validations to select minimum 2 chipsets and minimum one benchmark
+        if len(
+                form_chipset) >= 2 and form_benchmark is not None:  # validations to select minimum 2 chipsets and minimum one benchmark
             chipset = models.Chipset  # fetching full Chipset table from models.py
-            benchmark = models.Benchmark   # fetching full benchmark table from models.py
+            benchmark = models.Benchmark  # fetching full benchmark table from models.py
             selected_chipset = []  # blank list to store selected chipsets name
             for i in form_chipset:
-                selected_chipset += chipset.objects.filter(pk=i)  # selected chipset's name list fetched from chipset table as per the selected ids
+                selected_chipset += chipset.objects.filter(
+                    pk=i)  # selected chipset's name list fetched from chipset table as per the selected ids
             # selected_chipset = ['SA6155', 'SA6155A']
 
             comparison_values = []  # selected benchmarks name + values
@@ -41,36 +45,42 @@ def home(request):
                     FilterValue.objects.filter(chipset__id__in=form_chipset, benchmark__id__in=test).values_list(
                         'final_values', flat=True)))
 
-            # comparison_values=['Antutu 7', ['100', '130'], 'Antutu 6', ['102', '132']]
+            # comparison_values=['Antutu 7', '100', '130'], ['Antutu 6', '102', '132']]
+
+            # test = json.dumps(comparison_values)
+            selected_chipset1 = ['Value']
+            for i in form_chipset:
+                selected_chipset1 += chipset.objects.filter(pk=i).values_list('chipset_name', flat=True)
+
+            comparison_values1 = [selected_chipset1]  # selected benchmarks name + values
+            for test in form_benchmark:
+                comparison_values1.append(
+                    list(benchmark.objects.filter(pk=test).values_list('benchmark_name', flat=True)) + list(
+                        FilterValue.objects.filter(chipset__id__in=form_chipset, benchmark__id__in=test).values_list(
+                            'final_values', flat=True)))
+
+            test1 = json.dumps(transpose(comparison_values1, []))
 
             return render(request, "comparison/comparison.html",
-                          {'form_chipset': form_chipset, 'form_benchmark': form_benchmark, 'final_values': comparison_values,
-                           'chipset_name': selected_chipset})
+                          {'form_chipset': form_chipset, 'form_benchmark': form_benchmark,
+                           'final_values': comparison_values,
+                           'chipset_name': selected_chipset, 'test1': test1})
         else:
             messages.success(request, 'Please select required fields')
             return redirect('comparison:comp')
 
 
-"""
-
-def convert(request):
-    for row in csv.reader(str, delimiter=',', quotechar="|"):
-        _, created = Chipset.objects.update_or_create(
-            chipset_name=row[1],
-        )
-
-        _, created = Benchmark.objects.update_or_create(
-            benchmark_name=row[1][1],
-        )
-
-        _, created = FilterValue.objects.update_or_create(
-            chipset=row[1][2],
-        )
-"""
-
-
-def compare(request):
-    pass
+def transpose(l1, l2):
+    # iterate over list l1 to the length of an item
+    for i in range(len(l1[0])):
+        # print(i)
+        row = []
+        for item in l1:
+            # appending to new list with values and index positions
+            # i contains index position and item contains values
+            row.append(item[i])
+        l2.append(row)
+    return l2
 
 
 def login_user(request):

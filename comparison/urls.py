@@ -5,7 +5,6 @@ app_name = 'comparison'
 
 urlpatterns = [
     path('', views.home, name='comp'),
-    path('compare', views.home, name='compare'),
     path('login/', views.login_user, name="login"),
     path('logout/', views.logout_user, name="logout"),
     path('register/', views.register_user, name="register"),
