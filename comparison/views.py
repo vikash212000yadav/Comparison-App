@@ -1,14 +1,26 @@
 from django.contrib.auth.forms import PasswordChangeForm
 from django.shortcuts import render, redirect
+from django.views.generic import ListView, DetailView
+
 from .forms import *
 from .models import *
 import json
 from . import models
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib import messages
+from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 
 
 # Create your views here.
+def all_users(request):
+    users = User.objects.values_list('first_name', 'email', flat=False)
+    superuser = User.objects.filter(is_superuser=True).values_list('first_name', 'email')
+    staff = User.objects.filter(is_staff=True, is_superuser=False).values_list('first_name', 'email')
+    normal_user = User.objects.filter(is_active=True, is_staff=False).values_list('first_name', 'email')
+    return render(request, 'comparison/user_list.html',
+                  {'users': users, 'superusers': superuser, 'staff': staff, 'normal_user': normal_user})
+
 
 def home(request):
     if request.method == "GET":
@@ -40,7 +52,7 @@ def home(request):
                         'final_values', flat=True)))
             # comparison_values=['<Benchmark: Antutu 7>', 100, 130], ['<Benchmark: Antutu 6>', 102, 132]]
 
-            selected_chipset1 = ['Value']
+            selected_chipset1 = ['Chipsets']
             for i in form_chipset:
                 selected_chipset1 += chipset.objects.filter(pk=i).values_list('chipset_name', flat=True)
 
