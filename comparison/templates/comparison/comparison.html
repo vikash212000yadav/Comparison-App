@@ -4,30 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Homepage</title>
-    <style type="text/css" media="screen">
-        /*
-        .selectValue {
-            color: #fff;
-            padding: 30px;
-            display: none;
-            margin-top: 30px;
-            width: 60%;
-            background: green;
-        }
-
-        label {
-            margin-right: 20px;
-        }
-         */
-    </style>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 
-
 </head>
-
 <body>
 {% block content %}
     <h2 style="margin-top: 50px">Comparison according to your set preferences</h2>
+    <br>
     <br>
     <div>
         <table style="width:100%; border: 2px solid black;">
@@ -53,6 +36,115 @@
         <br>
     </div>
     <br>
+    <h4>&nbsp;&nbsp;&nbsp;Please select the chart type:-</h4><br>
+    <style>
+        button {
+            font-size: 18px;
+            border: 2px solid #AD235E;
+            border-radius: 10px;
+            width: 70px;
+            height: 70px;
+            margin-left: 20px;
+            margin-top: 10px;
+            background-size: 70px 70px;
+        }
+
+        button:hover {
+            border: 2px solid black;
+            opacity: 0.5;
+        }
+
+        .button1 {
+            background-image: url(https://4.bp.blogspot.com/-DE0iSPKpOfU/U4l-W9MgyyI/AAAAAAAAA-8/RFa_yRYzUZc/s1600/gif_500x309_ee8e4c.gif);
+            background-size: 70px 70px;
+        }
+
+        .button2 {
+            background-image: url(https://docs.mongodb.com/charts/master/images/charts/grouped-column-chart-reference-small.png);
+            background-size: 70px 70px;
+        }
+
+        .button3 {
+            background-image: url(https://google.github.io/charts/flutter/example/bar_charts/horizontal_full.png);
+            background-size: 70px 70px;
+        }
+
+        .button4 {
+            background-image: url(https://lh3.googleusercontent.com/F9VhHIlrA_u57RcRnNFq0MvmZqP6N6j61QbVhCnHmOoqCZOGtUXuefiy0R4Ht1R4Rg=w605-rwa);
+            background-size: 70px 70px;
+        }
+
+        .button5 {
+            background-image: url(https://docs.microsoft.com/en-us/power-bi/visuals/media/power-bi-visualization-basic-area-chart/power-bi-chart-example.png);
+            background-size: 70px 70px;
+        }
+
+        .button6 {
+            background-image: url(https://i.stack.imgur.com/2MZef.png);
+            background-size: 70px 70px;
+        }
+    </style>
+    <script>
+        function ShowAndHide1() {
+            var x = document.getElementById('chart_div');
+            if (x.style.display == 'none') {
+                x.style.display = 'block';
+            } else {
+                x.style.display = 'none';
+            }
+        }
+
+        function ShowAndHide2() {
+            var x = document.getElementById('columnchart_material');
+            if (x.style.display == 'none') {
+                x.style.display = 'block';
+            } else {
+                x.style.display = 'none';
+            }
+        }
+
+        function ShowAndHide3() {
+            var x = document.getElementById('barchart_material');
+            if (x.style.display == 'none') {
+                x.style.display = 'block';
+            } else {
+                x.style.display = 'none';
+            }
+        }
+
+        function ShowAndHide4() {
+            var x = document.getElementById('chart_div1');
+            if (x.style.display == 'none') {
+                x.style.display = 'block';
+            } else {
+                x.style.display = 'none';
+            }
+        }
+
+        function ShowAndHide5() {
+            var x = document.getElementById('chart_div2');
+            if (x.style.display == 'none') {
+                x.style.display = 'block';
+            } else {
+                x.style.display = 'none';
+            }
+        }
+
+        function ShowAndHide6() {
+            var x = document.getElementById('curve_chart');
+            if (x.style.display == 'none') {
+                x.style.display = 'block';
+            } else {
+                x.style.display = 'none';
+            }
+        }
+    </script>
+    <button class="button1" onclick="ShowAndHide1()" title="Combo Chart"></button>
+    <button class="button2" onclick="ShowAndHide2()" title="Column Chart"></button>
+    <button class="button3" onclick="ShowAndHide3()" title="Bar Chart"></button>
+    <button class="button4" onclick="ShowAndHide4()" title="Stepped Chart"></button>
+    <button class="button5" onclick="ShowAndHide5()" title="Area Chart"></button>
+    <button class="button6" onclick="ShowAndHide6()" title="Line Chart"></button>
 
     <br>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -70,37 +162,15 @@
                 vAxis: {title: 'Values'},
                 hAxis: {title: 'Chipsets'},
                 seriesType: 'bars',
+                width: 900,
+                height: 500
             };
 
             var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
             chart.draw(data, options);
         }
     </script>
-    <div id="chart_div" style="width: 900px; height: 500px;"></div>
-
-    <br><br>
-    <script type="text/javascript">
-        google.charts.load('current', {'packages': ['bar']});
-        google.charts.setOnLoadCallback(drawChart);
-
-        function drawChart() {
-            var data = google.visualization.arrayToDataTable({{ test1|safe }});
-
-            var options = {
-                chart: {
-                    title: 'Comparison for Benchmarks of different Chipsets',
-                    vAxis: {title: 'Values'},
-                    hAxis: {title: 'Chipsets'},
-                }
-            };
-
-            var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
-
-            chart.draw(data, google.charts.Bar.convertOptions(options));
-        }
-    </script>
-
-    <div id="columnchart_material" style="width: 800px; height: 500px;"></div>
+    <div id="chart_div" style="width: 10000px; height: 500px; display: none;"></div>
 
     <br><br>
     <script type="text/javascript">
@@ -116,7 +186,35 @@
                     vAxis: {title: 'Values'},
                     hAxis: {title: 'Chipsets'},
                 },
-                bars: 'horizontal' // Required for Material Bar Charts.
+                width: 800,
+                height: 500
+            };
+
+            var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+            chart.draw(data, google.charts.Bar.convertOptions(options));
+        }
+    </script>
+
+    <div id="columnchart_material" style="width: 900px; height: 500px; display: none;"></div>
+
+    <br><br>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages': ['bar']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable({{ test1|safe }});
+
+            var options = {
+                chart: {
+                    title: 'Comparison for Benchmarks of different Chipsets',
+                    vAxis: {title: 'Values'},
+                    hAxis: {title: 'Chipsets'},
+                },
+                bars: 'horizontal', // Required for Material Bar Charts.
+                width: 900,
+                height: 500
             };
 
             var chart = new google.charts.Bar(document.getElementById('barchart_material'));
@@ -125,7 +223,7 @@
         }
     </script>
 
-    <div id="barchart_material" style="width: 900px; height: 500px;"></div>
+    <div id="barchart_material" style="width: 900px; height: 500px; display: none;"></div>
 
     <br><br>
 
@@ -141,7 +239,9 @@
                 title: 'Comparison for Benchmarks of different Chipsets',
                 vAxis: {title: 'Values'},
                 hAxis: {title: 'Chipsets'},
-                isStacked: true
+                isStacked: true,
+                width: 900,
+                height: 500
             };
 
             var chart = new google.visualization.SteppedAreaChart(document.getElementById('chart_div1'));
@@ -149,7 +249,7 @@
             chart.draw(data, options);
         }
     </script>
-    <div id="chart_div1" style="width: 900px; height: 500px;"></div>
+    <div id="chart_div1" style="width: 900px; height: 500px; display: none;"></div>
     <br><br>
     <script type="text/javascript">
         google.charts.load('current', {'packages': ['corechart']});
@@ -162,14 +262,16 @@
                 title: 'Comparison for Benchmarks of different Chipsets',
                 vAxis: {title: 'Values', titleTextStyle: {color: '#333'}},
                 hAxis: {title: 'Chipsets', titleTextStyle: {color: '#332'}},
-                vAxis: {minValue: 0}
+                vAxis: {minValue: 0},
+                width: 900,
+                height: 500
             };
 
             var chart = new google.visualization.AreaChart(document.getElementById('chart_div2'));
             chart.draw(data, options);
         }
     </script>
-    <div id="chart_div2" style="width: 100%; height: 500px;"></div>
+    <div id="chart_div2" style="width: 900px; height: 500px; display: none;"></div>
 
     <br><br>
     <!-- Line Chart -->
@@ -185,7 +287,9 @@
                 vAxis: {title: 'Values'},
                 hAxis: {title: 'Chipsets'},
                 curveType: 'function',
-                legend: {position: 'bottom'}
+                legend: {position: 'bottom'},
+                width: 900,
+                height: 500
             };
 
             var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
@@ -193,7 +297,7 @@
             chart.draw(data, options);
         }
     </script>
-    <div id="curve_chart" style="width: 900px; height: 500px"></div>
+    <div id="curve_chart" style="width: 900px; height: 600px; display: none;"></div>
 
     <!--
     <h1>Graph according to your choice</h1>
