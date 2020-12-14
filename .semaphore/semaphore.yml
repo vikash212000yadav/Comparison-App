@@ -9,7 +9,7 @@ blocks:
     dependencies: []
     task:
       jobs:
-        - name: 'Job #1'
+        - name: Build
           commands:
             - sem-version python 3.7
             - checkout
@@ -28,5 +28,17 @@ blocks:
           - cache restore
           - pip install --cache-dir .pip_cache -r requirements.txt
       jobs:
-        - name: 'Job #1'
-          commands: []
+        - name: Unit Tests
+          commands:
+            - cd Comparison-App
+            - python manage.py makemigrations
+            - python manage.py migrate
+            - python manage.py test
+        - name: Checklist
+          commands:
+            - cd Comparison-App
+            - python manage.py check --deploy
+        - name: Style Check
+          commands:
+            - pip install flake8
+            - flake8 martor_demo/ --max-line-length=127
